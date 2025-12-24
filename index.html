@@ -1,0 +1,957 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>Merry Christmas Angel ❤️</title>
+  <style>
+    :root{
+      --bg1:#070b1a;
+      --bg2:#0b1433;
+      --gold:#ffd36b;
+      --pink:#ff5aa5;
+      --green1:#1dd17b;
+      --green2:#0aa24f;
+      --light1:#7cf7ff;
+      --light2:#ffd1ff;
+      --light3:#ffe66d;
+      --light4:#b6ff8a;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+      color:#fff;
+      overflow:hidden;
+      background:
+        radial-gradient(1200px 800px at 70% 20%, rgba(124,247,255,.12), transparent 55%),
+        radial-gradient(900px 700px at 30% 30%, rgba(255,90,165,.10), transparent 58%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+      touch-action: manipulation;
+    }
+
+    /* subtle stars */
+    .stars{
+      position:fixed; inset:0; pointer-events:none;
+      background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.6) 50%, transparent 55%),
+        radial-gradient(1px 1px at 30% 80%, rgba(255,255,255,.5) 50%, transparent 55%),
+        radial-gradient(1.2px 1.2px at 55% 35%, rgba(255,255,255,.55) 50%, transparent 55%),
+        radial-gradient(1px 1px at 80% 60%, rgba(255,255,255,.5) 50%, transparent 55%),
+        radial-gradient(1.3px 1.3px at 90% 15%, rgba(255,255,255,.65) 50%, transparent 55%),
+        radial-gradient(1px 1px at 15% 55%, rgba(255,255,255,.45) 50%, transparent 55%),
+        radial-gradient(1.2px 1.2px at 42% 12%, rgba(255,255,255,.55) 50%, transparent 55%),
+        radial-gradient(1px 1px at 62% 88%, rgba(255,255,255,.45) 50%, transparent 55%);
+      opacity:.85;
+      filter: drop-shadow(0 0 6px rgba(255,255,255,.12));
+      animation: twinkle 5s ease-in-out infinite alternate;
+    }
+    @keyframes twinkle { from{opacity:.65} to{opacity:1} }
+
+    .wrap{
+      position:relative;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+    }
+
+    .card{
+      width:min(520px, 92vw);
+      border-radius:24px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position:relative;
+      overflow:hidden;
+      padding:18px 18px 16px;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:6px;
+    }
+    .badge{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+      font-size:13px;
+      letter-spacing:.2px;
+    }
+    .dot{
+      width:8px;height:8px;border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, #fff, var(--pink));
+      box-shadow: 0 0 12px rgba(255,90,165,.7);
+    }
+    .hint{
+      font-size:12px;
+      opacity:.75;
+      user-select:none;
+    }
+
+    .stage{
+      position:relative;
+      height:min(560px, 72vh);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-top:8px;
+      border-radius:18px;
+      background:
+        radial-gradient(500px 360px at 50% 82%, rgba(255,211,107,.10), transparent 60%),
+        radial-gradient(600px 360px at 50% 78%, rgba(124,247,255,.10), transparent 62%);
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    /* Countdown */
+    .countdown{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:72px;
+      font-weight:800;
+      letter-spacing:2px;
+      text-shadow: 0 10px 30px rgba(0,0,0,.55);
+      background: radial-gradient(500px 400px at 50% 40%, rgba(255,90,165,.12), transparent 60%);
+      z-index: 30;
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .countdown.hide{opacity:0; transform: scale(1.05); pointer-events:none;}
+    .countdown span{
+      display:inline-block;
+      animation: pop .9s ease both;
+      color: #fff;
+      filter: drop-shadow(0 0 18px rgba(124,247,255,.18));
+    }
+    @keyframes pop{
+      0%{transform: scale(.6); opacity:0}
+      35%{transform: scale(1.1); opacity:1}
+      100%{transform: scale(1); opacity:1}
+    }
+
+    /* Tree Wrap */
+    .treeWrap{
+      position:relative;
+      width:min(340px, 72vw);
+      aspect-ratio: 3/4;
+      transform: translateY(14px);
+      opacity:0;
+      filter: drop-shadow(0 20px 45px rgba(0,0,0,.55));
+      z-index:10;
+    }
+    .treeWrap.show{
+      opacity:1;
+      animation: rise .9s cubic-bezier(.2,.8,.2,1) both;
+    }
+    @keyframes rise{
+      from{transform: translateY(50px) scale(.96); filter: blur(2px) drop-shadow(0 20px 45px rgba(0,0,0,.55));}
+      to{transform: translateY(14px) scale(1); filter: blur(0) drop-shadow(0 20px 45px rgba(0,0,0,.55));}
+    }
+
+    /* Star + Rays */
+    .starRays{
+      position:absolute;
+      top:-28px; left:50%;
+      transform: translateX(-50%);
+      width:140px; height:140px;
+      pointer-events:none;
+      z-index: 19;
+      opacity:0;
+      filter: drop-shadow(0 0 26px rgba(255,211,107,.25));
+    }
+    .treeWrap.show .starRays{
+      opacity:1;
+      animation: raysIn .9s ease .25s both, raysSpin 10s linear 1.2s infinite;
+    }
+    @keyframes raysIn{
+      from{transform: translateX(-50%) scale(.75); opacity:0}
+      to{transform: translateX(-50%) scale(1); opacity:1}
+    }
+    @keyframes raysSpin{ to{transform: translateX(-50%) rotate(360deg)} }
+
+    .star{
+      position:absolute;
+      top:-16px; left:50%;
+      transform: translateX(-50%) scale(.85);
+      width:86px;height:86px;
+      z-index: 20;
+      filter: drop-shadow(0 0 18px rgba(255,211,107,.55));
+      opacity:0;
+    }
+    .treeWrap.show .star{
+      opacity:1;
+      animation: starIn 1.1s ease .2s both, starGlow 2.2s ease-in-out 1.2s infinite alternate;
+    }
+    @keyframes starIn{
+      from{transform: translateX(-50%) translateY(-18px) scale(.2); opacity:0}
+      to{transform: translateX(-50%) translateY(0) scale(.85); opacity:1}
+    }
+    @keyframes starGlow{
+      from{filter: drop-shadow(0 0 14px rgba(255,211,107,.45))}
+      to{filter: drop-shadow(0 0 26px rgba(255,211,107,.85))}
+    }
+    .star svg{width:100%;height:100%}
+
+    /* ===== 关键：树与装饰统一坐标系（都放在 .tree 内） ===== */
+    .tree{
+      position:absolute;
+      left:50%;
+      transform: translateX(-50%);
+      bottom: 68px;
+      width: 100%;
+      height: 74%;
+    }
+
+    .layer{
+      position:absolute;
+      left:50%;
+      transform: translateX(-50%);
+      width: 92%;
+      height: 30%;
+      border-radius: 24px;
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      opacity:0;
+      filter: saturate(1.1);
+    }
+    .layer:nth-child(1){
+      top: 0%;
+      width: 58%;
+      height: 28%;
+      background: linear-gradient(180deg, rgba(29,209,123,.95), rgba(10,162,79,.95));
+      box-shadow: inset 0 -18px 24px rgba(0,0,0,.18);
+    }
+    .layer:nth-child(2){
+      top: 18%;
+      width: 76%;
+      height: 32%;
+      background: linear-gradient(180deg, rgba(38,225,145,.92), rgba(12,152,76,.96));
+      box-shadow: inset 0 -22px 28px rgba(0,0,0,.18);
+    }
+    .layer:nth-child(3){
+      top: 40%;
+      width: 96%;
+      height: 38%;
+      background: linear-gradient(180deg, rgba(29,209,123,.90), rgba(8,120,58,.98));
+      box-shadow: inset 0 -26px 34px rgba(0,0,0,.22);
+    }
+
+    .treeWrap.show .layer:nth-child(1){animation: layerIn .7s ease .35s both;}
+    .treeWrap.show .layer:nth-child(2){animation: layerIn .7s ease .55s both;}
+    .treeWrap.show .layer:nth-child(3){animation: layerIn .7s ease .75s both;}
+    @keyframes layerIn{
+      from{transform: translateX(-50%) translateY(18px) scale(.96); opacity:0}
+      to{transform: translateX(-50%) translateY(0) scale(1); opacity:1}
+    }
+
+    /* Garland in-tree */
+    .garland{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      pointer-events:none;
+      z-index: 15;
+      opacity:0;
+    }
+    .treeWrap.show .garland{
+      opacity:1;
+      animation: fadeIn .8s ease 1s both;
+    }
+    @keyframes fadeIn{from{opacity:0; transform: scale(.98)} to{opacity:1; transform: scale(1)}}
+
+    /* 华丽升级：流光丝带 */
+    .garland .glow{
+      filter: drop-shadow(0 0 10px rgba(255,211,107,.35))
+              drop-shadow(0 0 18px rgba(255,90,165,.25))
+              drop-shadow(0 0 20px rgba(124,247,255,.22));
+    }
+    .garland .shine{
+      stroke-dasharray: 22 240;
+      animation: garlandFlow 2.4s linear infinite;
+      filter: drop-shadow(0 0 10px rgba(255,255,255,.22));
+    }
+    @keyframes garlandFlow{ to { stroke-dashoffset: -262; } }
+
+    /* Ornaments + sparkles in-tree */
+    .ornaments{
+      position:absolute;
+      inset:0;
+      z-index:16;
+      pointer-events:none;
+      opacity:0;
+    }
+    .treeWrap.show .ornaments{
+      opacity:1;
+      animation: fadeIn .9s ease 1.15s both;
+    }
+
+    .sparkles{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      z-index: 12;
+      opacity:.9;
+      mix-blend-mode: screen;
+    }
+    .spark{
+      position:absolute;
+      width:6px;height:6px;border-radius:50%;
+      background: rgba(255,255,255,.9);
+      filter: drop-shadow(0 0 10px rgba(124,247,255,.35));
+      opacity:0;
+      animation: spark 2.2s ease-in-out infinite;
+    }
+    @keyframes spark{
+      0%{opacity:0; transform: translateY(10px) scale(.6)}
+      20%{opacity:1}
+      50%{opacity:.9; transform: translateY(0) scale(1)}
+      100%{opacity:0; transform: translateY(-10px) scale(.6)}
+    }
+
+    /* Ornaments balls */
+    .ball{
+      position:absolute;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.9), rgba(255,255,255,0) 45%),
+                  radial-gradient(circle at 50% 50%, var(--pink), rgba(255,90,165,.2));
+      box-shadow: 0 0 18px rgba(255,90,165,.35);
+      transform: translate(-50%, -50%);
+    }
+    .ball.b2{
+      background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.9), rgba(255,255,255,0) 45%),
+                  radial-gradient(circle at 50% 50%, #7cf7ff, rgba(124,247,255,.2));
+      box-shadow: 0 0 18px rgba(124,247,255,.35);
+    }
+    .ball.b3{
+      background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.9), rgba(255,255,255,0) 45%),
+                  radial-gradient(circle at 50% 50%, #ffe66d, rgba(255,230,109,.2));
+      box-shadow: 0 0 18px rgba(255,230,109,.35);
+    }
+
+    /* 霓虹灯光 */
+    .light{
+      position:absolute;
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      transform: translate(-50%,-50%);
+      opacity:.95;
+      filter: drop-shadow(0 0 10px rgba(255,255,255,.25));
+      animation: blink 1.6s ease-in-out infinite;
+    }
+    .light::after{
+      content:"";
+      position:absolute; inset:-10px;
+      border-radius:50%;
+      background: radial-gradient(circle, rgba(255,255,255,.20), transparent 62%);
+      opacity:.7;
+    }
+    .light.l1{background: var(--light1); box-shadow: 0 0 14px rgba(124,247,255,.65);}
+    .light.l2{background: var(--light2); box-shadow: 0 0 14px rgba(255,209,255,.65); animation-delay:.3s}
+    .light.l3{background: var(--light3); box-shadow: 0 0 14px rgba(255,230,109,.65); animation-delay:.6s}
+    .light.l4{background: var(--light4); box-shadow: 0 0 14px rgba(182,255,138,.65); animation-delay:.9s}
+    @keyframes blink{
+      0%,100%{transform: translate(-50%,-50%) scale(.92); opacity:.6}
+      50%{transform: translate(-50%,-50%) scale(1.15); opacity:1}
+    }
+
+    /* Trunk */
+    .trunk{
+      position:absolute;
+      left:50%;
+      transform: translateX(-50%);
+      bottom: 28px;
+      width: 76px;
+      height: 64px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #8b4b2b, #5a2d18);
+      box-shadow: inset 0 12px 20px rgba(255,255,255,.08), inset 0 -12px 18px rgba(0,0,0,.25);
+      opacity:0;
+    }
+    .treeWrap.show .trunk{
+      opacity:1;
+      animation: trunkIn .7s ease .95s both;
+    }
+    @keyframes trunkIn{
+      from{transform: translateX(-50%) translateY(16px); opacity:0}
+      to{transform: translateX(-50%) translateY(0); opacity:1}
+    }
+
+    /* Snow base */
+    .snowBase{
+      position:absolute;
+      left:50%;
+      transform: translateX(-50%);
+      bottom: 10px;
+      width: 74%;
+      height: 52px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.92), rgba(255,255,255,.62));
+      box-shadow: 0 16px 40px rgba(0,0,0,.25);
+      opacity:0;
+    }
+    .treeWrap.show .snowBase{
+      opacity:1;
+      animation: fadeIn .8s ease 1.05s both;
+    }
+
+    /* Gifts */
+    .gifts{
+      position:absolute;
+      left:50%;
+      transform: translateX(-50%);
+      bottom: 18px;
+      width: 90%;
+      height: 80px;
+      pointer-events:none;
+      z-index: 9;
+      opacity:0;
+    }
+    .treeWrap.show .gifts{
+      opacity:1;
+      animation: fadeIn .8s ease 1.2s both;
+    }
+    .gift{
+      position:absolute;
+      bottom:0;
+      width:54px; height:44px;
+      border-radius:10px;
+      background: linear-gradient(180deg, rgba(255,90,165,.95), rgba(170,30,120,.95));
+      box-shadow: 0 16px 30px rgba(0,0,0,.25);
+    }
+    .gift::before{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(90deg, transparent 40%, rgba(255,211,107,.95) 40% 60%, transparent 60%);
+      border-radius:10px;
+      opacity:.95;
+    }
+    .gift::after{
+      content:"";
+      position:absolute;
+      left:50%; top:-10px;
+      width:34px; height:22px;
+      transform: translateX(-50%);
+      background: radial-gradient(circle at 30% 50%, rgba(255,211,107,.95), rgba(255,211,107,.2));
+      border-radius: 12px 12px 6px 6px;
+      filter: drop-shadow(0 0 10px rgba(255,211,107,.25));
+    }
+    .gift.g2{
+      width:46px; height:38px;
+      background: linear-gradient(180deg, rgba(124,247,255,.95), rgba(20,110,160,.95));
+    }
+    .gift.g2::before{
+      background: linear-gradient(90deg, transparent 42%, rgba(255,230,109,.95) 42% 58%, transparent 58%);
+    }
+
+    /* Heart floating */
+    .hearts{
+      position:absolute; inset:0; pointer-events:none; z-index: 40;
+    }
+    .heart{
+      position:absolute;
+      width: 18px; height: 18px;
+      transform: translate(-50%,-50%) rotate(45deg);
+      background: rgba(255,90,165,.88);
+      border-radius: 4px;
+      filter: drop-shadow(0 0 12px rgba(255,90,165,.35));
+      opacity:0;
+      animation: heartFloat 3.8s ease-in forwards;
+    }
+    .heart:before,.heart:after{
+      content:"";
+      position:absolute;
+      width:18px;height:18px;
+      background: inherit;
+      border-radius: 50%;
+    }
+    .heart:before{left:-9px; top:0}
+    .heart:after{left:0; top:-9px}
+    @keyframes heartFloat{
+      0%{opacity:0; transform: translate(-50%,-50%) translateY(12px) rotate(45deg) scale(.6)}
+      10%{opacity:1}
+      100%{opacity:0; transform: translate(-50%,-50%) translateY(-220px) rotate(45deg) scale(1.2)}
+    }
+
+    /* Blessing text */
+    .message{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:16px;
+      background: rgba(0,0,0,.18);
+      border:1px solid rgba(255,255,255,.10);
+      min-height: 84px;
+      position:relative;
+      overflow:hidden;
+    }
+    .title{
+      font-weight:800;
+      font-size:18px;
+      letter-spacing:.2px;
+      margin:0 0 6px 0;
+      background: linear-gradient(90deg, rgba(255,211,107,.95), rgba(124,247,255,.9), rgba(255,90,165,.95));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+      text-shadow: 0 0 22px rgba(255,255,255,.06);
+    }
+    .typing{
+      font-size:14px;
+      line-height:1.7;
+      opacity:.92;
+      white-space:pre-wrap;
+      word-break:break-word;
+      min-height: 46px;
+    }
+    .cursor{
+      display:inline-block;
+      width:10px;
+      height:16px;
+      transform: translateY(2px);
+      background: rgba(255,255,255,.8);
+      margin-left:2px;
+      animation: caret 1s steps(2) infinite;
+      border-radius:2px;
+    }
+    @keyframes caret{ 50%{opacity:0} }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      margin-top:10px;
+      flex-wrap:wrap;
+    }
+    button{
+      appearance:none;
+      border:0;
+      padding:10px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.10);
+      color:#fff;
+      font-weight:650;
+      font-size:13px;
+      border:1px solid rgba(255,255,255,.12);
+      cursor:pointer;
+      user-select:none;
+    }
+    button:active{transform: scale(.98)}
+    .primary{
+      background: linear-gradient(90deg, rgba(255,90,165,.85), rgba(124,247,255,.65));
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow: 0 10px 30px rgba(255,90,165,.18);
+    }
+
+    /* Snow canvas */
+    canvas#snow{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      z-index: 5;
+      pointer-events:none;
+    }
+
+    .foot{
+      margin-top:10px;
+      font-size:12px;
+      opacity:.65;
+      text-align:center;
+      user-select:none;
+    }
+
+    @media (max-width: 380px){
+      .countdown{font-size:64px}
+      .treeWrap{width:min(320px, 84vw)}
+      .title{font-size:17px}
+      .typing{font-size:13px}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="stars"></div>
+
+  <div class="wrap">
+    <div class="card" id="card">
+      <div class="topbar">
+        <div class="badge"><span class="dot"></span><span>For my girl ❤️</span></div>
+        <div class="hint">轻触屏幕有惊喜</div>
+      </div>
+
+      <div class="stage" id="stage">
+        <canvas id="snow"></canvas>
+
+        <div class="countdown" id="countdown"><span>3</span></div>
+
+        <div class="treeWrap" id="treeWrap" aria-label="Christmas Tree">
+          <!-- star rays -->
+          <div class="starRays" aria-hidden="true">
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+              <defs>
+                <radialGradient id="rayG" cx="50%" cy="50%" r="50%">
+                  <stop offset="0" stop-color="rgba(255,211,107,.55)"/>
+                  <stop offset="0.5" stop-color="rgba(255,90,165,.22)"/>
+                  <stop offset="1" stop-color="rgba(124,247,255,0)"/>
+                </radialGradient>
+              </defs>
+              <g>
+                <circle cx="50" cy="50" r="48" fill="url(#rayG)"/>
+                <g fill="rgba(255,211,107,.18)">
+                  <path d="M50 4 L54 24 L46 24 Z"/>
+                  <path d="M96 50 L76 54 L76 46 Z"/>
+                  <path d="M50 96 L46 76 L54 76 Z"/>
+                  <path d="M4 50 L24 46 L24 54 Z"/>
+                  <path d="M83 17 L70 33 L64 27 Z"/>
+                  <path d="M83 83 L64 73 L70 67 Z"/>
+                  <path d="M17 83 L33 70 L27 64 Z"/>
+                  <path d="M17 17 L27 36 L33 30 Z"/>
+                </g>
+              </g>
+            </svg>
+          </div>
+
+          <!-- star -->
+          <div class="star" aria-hidden="true">
+            <svg viewBox="0 0 100 100">
+              <defs>
+                <linearGradient id="gStar" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#fff2b3"/>
+                  <stop offset="0.4" stop-color="#ffd36b"/>
+                  <stop offset="1" stop-color="#ffb84d"/>
+                </linearGradient>
+              </defs>
+              <path fill="url(#gStar)" d="M50 6 L61 36 L94 36 L67 55 L77 86 L50 67 L23 86 L33 55 L6 36 L39 36 Z"/>
+            </svg>
+          </div>
+
+          <!-- TREE (统一坐标系：层 + 丝带 + 灯 + 挂件 + 闪点都在这里) -->
+          <div class="tree" id="tree">
+            <div class="layer"></div>
+            <div class="layer"></div>
+            <div class="layer"></div>
+
+            <!-- Garland -->
+            <svg class="garland" viewBox="0 0 400 300" aria-hidden="true">
+              <defs>
+                <linearGradient id="gGar" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="rgba(255,211,107,.95)"/>
+                  <stop offset="0.5" stop-color="rgba(255,90,165,.85)"/>
+                  <stop offset="1" stop-color="rgba(124,247,255,.85)"/>
+                </linearGradient>
+                <linearGradient id="gShine" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="rgba(255,255,255,0)"/>
+                  <stop offset="0.45" stop-color="rgba(255,255,255,.85)"/>
+                  <stop offset="0.55" stop-color="rgba(255,255,255,.85)"/>
+                  <stop offset="1" stop-color="rgba(255,255,255,0)"/>
+                </linearGradient>
+              </defs>
+
+              <!-- 底层彩带（加 class=garPath 供 JS 沿路径撒灯） -->
+              <g class="glow">
+                <path class="garPath" d="M70 80 C125 120, 160 120, 200 98 C240 76, 275 80, 330 110"
+                      stroke="url(#gGar)" stroke-width="9" fill="none" stroke-linecap="round" opacity=".88"/>
+                <path class="garPath" d="M82 140 C140 170, 175 172, 210 150 C245 128, 288 132, 318 160"
+                      stroke="url(#gGar)" stroke-width="8" fill="none" stroke-linecap="round" opacity=".78"/>
+                <path class="garPath" d="M102 205 C160 230, 195 234, 232 214 C270 194, 296 196, 312 210"
+                      stroke="url(#gGar)" stroke-width="7" fill="none" stroke-linecap="round" opacity=".68"/>
+              </g>
+
+              <!-- 顶层流光 -->
+              <g>
+                <path class="shine" d="M70 80 C125 120, 160 120, 200 98 C240 76, 275 80, 330 110"
+                      stroke="url(#gShine)" stroke-width="5" fill="none" stroke-linecap="round" opacity=".9"/>
+                <path class="shine" d="M82 140 C140 170, 175 172, 210 150 C245 128, 288 132, 318 160"
+                      stroke="url(#gShine)" stroke-width="4.5" fill="none" stroke-linecap="round" opacity=".85"
+                      style="animation-duration:2.0s"/>
+                <path class="shine" d="M102 205 C160 230, 195 234, 232 214 C270 194, 296 196, 312 210"
+                      stroke="url(#gShine)" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"
+                      style="animation-duration:1.7s"/>
+              </g>
+            </svg>
+
+            <!-- ornaments & sparkles -->
+            <div class="ornaments" id="ornaments"></div>
+            <div class="sparkles" id="sparkles"></div>
+          </div>
+
+          <div class="trunk"></div>
+
+          <div class="gifts" aria-hidden="true">
+            <div class="gift" style="left:18%"></div>
+            <div class="gift g2" style="left:36%"></div>
+            <div class="gift" style="left:58%"></div>
+          </div>
+
+          <div class="snowBase"></div>
+        </div>
+
+        <div class="hearts" id="hearts"></div>
+      </div>
+
+      <div class="message">
+        <div class="title" id="msgTitle">Merry Christmas, my love</div>
+        <div class="typing" id="typing"></div>
+      </div>
+
+      <div class="actions">
+        <button class="primary" id="replayBtn">再看一次（点亮）</button>
+        <button id="wishBtn">放一波爱心</button>
+        <button id="moreSnowBtn">更大雪</button>
+      </div>
+
+      <div class="foot">愿这个冬天的所有温柔，都偏爱你。</div>
+    </div>
+  </div>
+
+  <script>
+    const $ = (s)=>document.querySelector(s);
+    const rand = (a,b)=>Math.random()*(b-a)+a;
+
+    const countdownEl = $("#countdown");
+    const treeWrap = $("#treeWrap");
+    const typingEl = $("#typing");
+    const replayBtn = $("#replayBtn");
+    const wishBtn = $("#wishBtn");
+    const moreSnowBtn = $("#moreSnowBtn");
+    const hearts = $("#hearts");
+    const ornamentsEl = $("#ornaments");
+    const sparklesEl = $("#sparkles");
+
+    const lines = [
+      "亲爱的Angel，圣诞快乐。",
+      "谢谢你出现在我的生活里，把平凡的日子都变得闪闪发光。",
+      "愿你被温柔以待，愿你的每一个愿望都如期而至。",
+      "也愿我能一直在你身边，陪你过每一个冬天与四季。❤️"
+    ];
+
+    let timer = null;
+
+    function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+    async function typeText(text, speed){
+      for(const ch of text){
+        typingEl.textContent += ch;
+        await sleep(speed);
+      }
+      if(!typingEl.querySelector(".cursor")){
+        const c = document.createElement("span");
+        c.className = "cursor";
+        typingEl.appendChild(c);
+      }
+      await sleep(80);
+      const cur = typingEl.querySelector(".cursor");
+      if(cur) cur.remove();
+    }
+
+    async function typeLines(arr, speed=24){
+      typingEl.textContent = "";
+      for(let i=0;i<arr.length;i++){
+        await typeText(arr[i] + (i===arr.length-1 ? "" : "\n"), speed);
+        await sleep(220);
+      }
+    }
+
+    function startShow(){
+      clearInterval(timer);
+      treeWrap.classList.remove("show");
+      countdownEl.classList.remove("hide");
+      typingEl.textContent = "";
+      countdownEl.innerHTML = "<span>3</span>";
+
+      // 重建装饰（避免重播后灯/闪点不一致）
+      buildDecor();
+
+      let n = 3;
+      timer = setInterval(()=>{
+        n--;
+        if(n>0){
+          countdownEl.innerHTML = `<span>${n}</span>`;
+        }else{
+          clearInterval(timer);
+          countdownEl.classList.add("hide");
+          treeWrap.classList.add("show");
+          setTimeout(()=>typeLines(lines, 26), 650);
+          setTimeout(()=>burstHearts(10), 900);
+        }
+      }, 900);
+    }
+
+    // Hearts
+    function spawnHeart(x,y){
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.style.left = x + "px";
+      h.style.top = y + "px";
+      h.style.animationDuration = rand(3.0, 4.6) + "s";
+      h.style.filter = `drop-shadow(0 0 12px rgba(255,90,165,${rand(.22,.45)}))`;
+      hearts.appendChild(h);
+      setTimeout(()=>h.remove(), 5000);
+    }
+    function burstHearts(count=12){
+      const rect = $("#stage").getBoundingClientRect();
+      for(let i=0;i<count;i++){
+        setTimeout(()=>{
+          spawnHeart(
+            rect.left + rect.width/2 + rand(-rect.width*0.18, rect.width*0.18),
+            rect.top + rect.height*0.75 + rand(-20, 10)
+          );
+        }, i*70);
+      }
+    }
+    $("#stage").addEventListener("pointerdown", (e)=>spawnHeart(e.clientX, e.clientY));
+
+    // Build decor: balls + sparkles + lights on garland path
+    function buildDecor(){
+      ornamentsEl.innerHTML = "";
+      sparklesEl.innerHTML = "";
+
+      // Balls (percent based, within #tree)
+      const balls = [
+        {x:46,y:28,t:"b3",s:14},{x:54,y:34,t:"b2",s:14},{x:40,y:44,t:"b1",s:16},
+        {x:60,y:46,t:"b3",s:16},{x:33,y:58,t:"b2",s:14},{x:68,y:60,t:"b1",s:15},
+        {x:44,y:66,t:"b3",s:14},{x:56,y:70,t:"b2",s:13},{x:50,y:80,t:"b1",s:14}
+      ];
+      balls.forEach((p)=>{
+        const b = document.createElement("div");
+        b.className = `ball ${p.t}`;
+        b.style.width = p.s + "px";
+        b.style.height = p.s + "px";
+        b.style.left = p.x + "%";
+        b.style.top  = p.y + "%";
+        ornamentsEl.appendChild(b);
+      });
+
+      // Sparkles
+      const sparkleCount = 22;
+      for(let i=0;i<sparkleCount;i++){
+        const sp = document.createElement("div");
+        sp.className = "spark";
+        sp.style.left = rand(20,80) + "%";
+        sp.style.top  = rand(12,92) + "%";
+        sp.style.animationDelay = rand(0,2) + "s";
+        sp.style.transform = `translateY(${rand(-10,10)}px) scale(${rand(.65,1.15)})`;
+        sparklesEl.appendChild(sp);
+      }
+
+      // Lights along garland path
+      const treeEl = document.querySelector("#tree");
+      const svg = treeEl.querySelector("svg.garland");
+      if(!svg) return;
+
+      const paths = Array.from(svg.querySelectorAll(".garPath"));
+      if(paths.length === 0) return;
+
+      const lightClasses = ["l1","l2","l3","l4"];
+      let lightIndex = 0;
+
+      paths.forEach((path, pi)=>{
+        const len = path.getTotalLength();
+        const count = pi === 0 ? 16 : (pi === 1 ? 14 : 12);
+
+        for(let i=0;i<count;i++){
+          const t = (i + rand(-0.12,0.12)) / count;
+          const pt = path.getPointAtLength(Math.max(0, Math.min(len, t * len)));
+
+          // viewBox: 0..400, 0..300  -> percent in tree
+          const xPct = (pt.x / 400) * 100;
+          const yPct = (pt.y / 300) * 100;
+
+          const d = document.createElement("div");
+          d.className = `light ${lightClasses[lightIndex++ % lightClasses.length]}`;
+          d.style.left = xPct + "%";
+          d.style.top  = yPct + "%";
+          d.style.animationDelay = rand(0,1.2) + "s";
+          d.style.transform = `translate(-50%,-50%) scale(${rand(.9,1.25)})`;
+          ornamentsEl.appendChild(d);
+        }
+      });
+    }
+
+    // Snow (Canvas)
+    const snowCanvas = $("#snow");
+    const ctx = snowCanvas.getContext("2d");
+    let W=0,H=0,flakes=[];
+    let snowIntensity = 1; // 1..3
+
+    function resize(){
+      const r = snowCanvas.getBoundingClientRect();
+      W = snowCanvas.width  = Math.floor(r.width * devicePixelRatio);
+      H = snowCanvas.height = Math.floor(r.height * devicePixelRatio);
+    }
+    window.addEventListener("resize", ()=>{ resize(); initSnow(); }, {passive:true});
+
+    function initSnow(){
+      resize();
+      flakes = [];
+      const base = 90;
+      const count = Math.floor(base * snowIntensity);
+      for(let i=0;i<count;i++){
+        flakes.push({
+          x: Math.random()*W,
+          y: Math.random()*H,
+          r: rand(1.2, 3.6) * devicePixelRatio,
+          v: rand(0.35, 1.2) * devicePixelRatio * (0.9 + snowIntensity*0.2),
+          drift: rand(-0.25, 0.25) * devicePixelRatio,
+          a: rand(0.35, 0.95),
+          wob: rand(0, Math.PI*2)
+        });
+      }
+    }
+
+    function drawSnow(){
+      ctx.clearRect(0,0,W,H);
+      for(const f of flakes){
+        f.wob += 0.02;
+        f.x += f.drift + Math.sin(f.wob)*0.25*devicePixelRatio;
+        f.y += f.v;
+        if(f.y > H + 10){ f.y = -10; f.x = Math.random()*W; }
+        if(f.x < -20) f.x = W+20;
+        if(f.x > W+20) f.x = -20;
+
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(255,255,255,${f.a})`;
+        ctx.fill();
+      }
+      requestAnimationFrame(drawSnow);
+    }
+
+    // Buttons
+    replayBtn.addEventListener("click", startShow);
+
+    wishBtn.addEventListener("click", ()=>{
+      burstHearts(16);
+      sparklesEl.style.opacity = "1";
+      setTimeout(()=>sparklesEl.style.opacity = ".9", 350);
+    });
+
+    moreSnowBtn.addEventListener("click", ()=>{
+      snowIntensity = snowIntensity >= 3 ? 1 : snowIntensity + 1;
+      initSnow();
+      const hint = snowIntensity === 1 ? "（小雪）" : snowIntensity === 2 ? "（中雪）" : "（大雪）";
+      $("#msgTitle").textContent = "Merry Christmas, my love " + hint;
+    });
+
+    // Boot
+    buildDecor();
+    initSnow();
+    drawSnow();
+    startShow();
+  </script>
+</body>
+</html>
